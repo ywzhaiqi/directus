@@ -19,6 +19,18 @@ Directus is a real-time API and App dashboard for managing SQL database content.
 
 <br />
 
+## 修改说明
+
+app
+- 表(tabular) 新增 item props
+- cards layout 新增 imageUrl
+
+### 开发
+
+`pnpm build` 构建所有，再 `pnpm --filter api dev`, `pnpm --filter app dev`，详见 [Running Dev Environment](https://docs.directus.io/contributing/running-locally.html)
+
+<br />
+
 ## 🚀 Directus Cloud
 
 [Directus Cloud](https://directus.io/pricing) allows you to create projects, hosted by the Directus team, in 90 seconds.
