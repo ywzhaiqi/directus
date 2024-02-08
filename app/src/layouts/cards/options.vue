@@ -10,6 +10,7 @@ const props = defineProps<{
 	fileFields: Field[];
 	imageFit: string;
 	imageSource?: string | null;
+	imageUrl?: string | null;
 	title?: string;
 	subtitle?: string;
 }>();
@@ -17,6 +18,7 @@ const props = defineProps<{
 const emit = defineEmits<{
 	(e: 'update:icon', icon: string): void;
 	(e: 'update:imageSource', imageSource: string): void;
+	(e: 'update:imageUrl', imageUrl: string): void;
 	(e: 'update:title', title: string): void;
 	(e: 'update:subtitle', subtitle: string): void;
 	(e: 'update:imageFit', imageFit: string): void;
@@ -26,6 +28,7 @@ const { t } = useI18n();
 
 const iconWritable = useSync(props, 'icon', emit);
 const imageSourceWritable = useSync(props, 'imageSource', emit);
+const imageUrlWritable = useSync(props, 'imageUrl', emit);
 const titleWritable = useSync(props, 'title', emit);
 const subtitleWritable = useSync(props, 'subtitle', emit);
 const imageFitWritable = useSync(props, 'imageFit', emit);
@@ -43,6 +46,10 @@ export default defineComponent({
 	<div class="field">
 		<div class="type-label">{{ t('layouts.cards.image_source') }}</div>
 		<v-select v-model="imageSourceWritable" show-deselect item-value="field" item-text="name" :items="fileFields" />
+	</div>
+	<div class="field">
+		<div class="type-label">{{ t('layouts.cards.image_url') }}</div>
+		<v-field-template v-model="imageUrlWritable" :collection="collection" />
 	</div>
 
 	<div class="field">

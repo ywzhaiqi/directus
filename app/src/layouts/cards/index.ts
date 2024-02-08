@@ -52,7 +52,7 @@ export default defineLayout<LayoutOptions, LayoutQuery>({
 			});
 		});
 
-		const { size, icon, imageSource, title, subtitle, imageFit } = useLayoutOptions();
+		const { size, icon, imageSource, imageUrl, title, subtitle, imageFit } = useLayoutOptions();
 		const { sort, limit, page, fields } = useLayoutQuery();
 
 		const { items, loading, error, totalPages, itemCount, totalCount, getItems, getTotalCount, getItemCount } =
@@ -93,6 +93,7 @@ export default defineLayout<LayoutOptions, LayoutQuery>({
 			icon,
 			fileFields,
 			imageSource,
+			imageUrl,
 			title,
 			subtitle,
 			getLinkForItem,
@@ -136,9 +137,10 @@ export default defineLayout<LayoutOptions, LayoutQuery>({
 			const title = createViewOption<string | null>('title', null);
 			const subtitle = createViewOption<string | null>('subtitle', null);
 			const imageSource = createViewOption<string | null>('imageSource', fileFields.value[0]?.field ?? null);
+			const imageUrl = createViewOption<string | null>('imageUrl', null);
 			const imageFit = createViewOption<string>('imageFit', 'crop');
 
-			return { size, icon, imageSource, title, subtitle, imageFit };
+			return { size, icon, imageSource, imageUrl, title, subtitle, imageFit };
 
 			function createViewOption<T>(key: keyof LayoutOptions, defaultValue: any) {
 				return computed<T>({
@@ -178,6 +180,9 @@ export default defineLayout<LayoutOptions, LayoutQuery>({
 					fields.push('type');
 				}
 
+				if (imageUrl.value) {
+					fields.push(...getFieldsFromTemplate(imageUrl.value));
+				}
 				const titleSubtitleFields: string[] = [];
 
 				if (title.value) {

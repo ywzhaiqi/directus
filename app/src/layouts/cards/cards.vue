@@ -38,6 +38,8 @@ const props = withDefaults(
 		itemCount?: number;
 		primaryKeyField?: Field;
 		imageSource?: string;
+		// 类似 {{photo}}
+		imageUrl?: string;
 		title?: string;
 		subtitle?: string;
 		info?: Collection;
@@ -105,6 +107,7 @@ watch(innerWidth, (value) => {
 					:crop="imageFit === 'crop'"
 					:icon="icon"
 					:file="imageSource ? item[imageSource] : null"
+					:img-url="imageUrl ? item[imageUrl.replace(/{|}/g, '')] : null"
 					:item="item"
 					:select-mode="selectMode || (selection && selection.length > 0)"
 					:to="getLinkForItem(item)"

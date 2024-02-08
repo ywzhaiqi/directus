@@ -15,6 +15,7 @@ const props = withDefaults(
 		itemKey: string;
 		icon?: string;
 		file?: File;
+		imgUrl?: string;
 		crop?: boolean;
 		loading?: boolean;
 		item?: Record<string, any>;
@@ -43,6 +44,7 @@ const type = computed(() => {
 });
 
 const imageInfo = computed(() => {
+	if (props.imgUrl) return { source: props.imgUrl, fileType: 'url' };
 	let fileType = undefined;
 	if (!props.file || !props.file.type) return null;
 	if (props.file.type.startsWith('image') === true) fileType = 'image';
@@ -107,14 +109,22 @@ function handleClick() {
 			<template v-else>
 				<v-icon-file v-if="type || imgError" :ext="type" />
 				<template v-else>
+					<div v-if="showThumbnail">
+						<img
+							v-if="imageInfo?.fileType === 'url'"
+							class="image"
+							:src="imageInfo?.source"
+							:onerror="() => { imgError = true }"
+						/>
 					<v-image
-						v-if="showThumbnail"
+							v-else
 						:class="imageInfo?.fileType"
 						:src="imageInfo?.source"
 						:alt="item?.title"
 						role="presentation"
 						@error="imgError = true"
 					/>
+					</div>
 					<v-icon v-else large :name="icon" />
 				</template>
 			</template>

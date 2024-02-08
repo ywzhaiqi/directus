@@ -2095,6 +2095,7 @@ layouts:
   cards:
     cards: Cards
     image_source: Image Source
+    image_url: Image Url
     image_fit: Image Fit
     crop: Crop
     contain: Contain

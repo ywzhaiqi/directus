@@ -2031,6 +2031,7 @@ layouts:
   cards:
     cards: 卡片
     image_source: 图像来源
+    image_url: 图像网址
     image_fit: 适合图像
     crop: 裁剪
     contain: 包含
